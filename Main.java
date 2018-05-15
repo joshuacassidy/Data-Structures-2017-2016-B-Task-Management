@@ -19,6 +19,5 @@ public class Main {
         heap.pop();
         heap.sort();
         System.out.println(heap);
-
     }
 }

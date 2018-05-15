@@ -2,10 +2,7 @@ package com.josh.Heap;
 
 import java.util.Arrays;
 
-/**
- * Created by Josh on 14/05/2018.
- */
-public class Heap<T extends Comparable<T>> {
+public class Heap<T extends Comparable<T>> implements IPQ {
 
     private int capacity, size;
     private T[] heap;
@@ -16,12 +13,14 @@ public class Heap<T extends Comparable<T>> {
         heap = (T[]) new Comparable[capacity];
     }
 
-    public void push(T item) {
+    @Override
+    public void push(Object item) {
         resize();
-        heap[size] = item;
+        heap[size] = (T) item;
         size++;
         heapifyUp();
     }
+
 
     private void resize() {
         if (size == capacity) {
@@ -42,6 +41,7 @@ public class Heap<T extends Comparable<T>> {
 
     }
 
+    @Override
     public T pop() {
         if (isEmpty()) {
             throw new HeapIsEmptyException("Error there is no heap in the heap");
@@ -84,6 +84,7 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
+    @Override
     public T peek() {
         if (isEmpty()) {
             throw new HeapIsEmptyException("Error there is no heap in the heap");
@@ -122,6 +123,7 @@ public class Heap<T extends Comparable<T>> {
         return index == 0 ? null : heap[getParentIndex(index)];
     }
 
+
     public boolean hasLeftChild(int index) {
         return getLeftChildIndex(index) < size;
     }
@@ -138,8 +140,14 @@ public class Heap<T extends Comparable<T>> {
         return heap;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
     @Override
@@ -152,4 +160,8 @@ public class Heap<T extends Comparable<T>> {
         return str;
     }
 
+    @Override
+    public void printPQ() {
+        System.out.println(toString());
+    }
 }
